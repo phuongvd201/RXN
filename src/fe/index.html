@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Retail Exchange Network</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="vendor/jqGrid/css/ui.jqgrid-bootstrap.css">
+  <link rel="stylesheet" href="vendor/jquery-ui/css/jquery-ui.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="css/layout.css">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Retail Exchange Network</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Admin
+                <span class="sr-only">(current)</span>
+              </a>
+          </li>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container my-3 pt-5">
+
+    <h1 class="text-center py-2">PRODUCT MASTER SHEET</h1>
+
+    <div class="validation-summary" style="display:none">
+      <ul class="validation-summary-errors">
+        
+      </ul>
+    </div>
+
+    <fieldset>
+      <legend>Product Master</legend>
+      <div class="row">
+        <div class="col-7">
+          <div class="row form-group">
+            <label class="col-form-label col-3" for="itemMasterID">Product Number</label>
+            <div class="col-5">
+              <input pattern="\d*" maxlength="9" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" id="itemMasterID" placeholder="">
+            </div>
+            <label class="col-form-label col-2" for="imPack">Pack Size</label>
+            <div class="col-2">
+              <input type="number" min="1" class="form-control" id="imPack" placeholder="">
+            </div>
+
+          </div>
+
+          <div class="row form-group">
+            <label class="col-form-label col-3" for="imDescription">Description</label>
+            <div class="col-9">
+              <textarea rows="6" class="form-control" id="imDescription" placeholder=""></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-5">
+
+          <fieldset>
+            <legend>Product Image</legend>
+
+            <div class="row">
+              <div class="col">
+                <img id="imLogo" src="images/no-image.png" alt="No image" width="130" height="140" />
+              </div>
+              <div class="col">
+                <input type="file" id="upload-logo" (change)="onFileChange($event)" accept="image/*" />
+                <label class="btn btn-primary" for="upload-logo"><a>Browser Logo</a></label>
+
+                <button class="btn btn-secondary" id="js-discard-logo" title="Xóa hình">Discard Logo</button>
+              </div>
+
+            </div>
+
+          </fieldset>
+
+
+        </div>
+
+      </div>
+    </fieldset>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item col p-0">
+        <a class="nav-link text-center active" data-toggle="tab" href="#info" role="tab"><strong>Basic information</strong></a>
+      </li>
+      <li class="nav-item col p-0">
+        <a class="nav-link text-center" data-toggle="tab" href="#inventory" role="tab"><strong>Inventory</strong></a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="info" role="tabpanel">
+        <div class="row p-3">
+          <div class="col">
+
+            <div class="row form-group">
+              <label class="col-form-label col-12">
+                    <input type="checkbox"  id="imIsHazardousMaterial">
+                    Hazardous Meterial
+                  </label>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-form-label col-4" for="imCostCenterCode">Cost Center Code</label>
+              <div class="col-8">
+                <input type="text" data-inputmask="'mask': '9999-99-99'" class="form-control" id="imCostCenterCode" placeholder="">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-form-label col-4" for="imExpirationDate">Expiration Date</label>
+              <div class="col-8">
+                <input data-provide="datepicker" data-date-format="mm/dd/yyyy" class="form-control" id="imExpirationDate" placeholder="">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-form-label col-4" for="imUnitPrice">Unit Price</label>
+              <div class="col-8">
+                <input type="number" step="0.01" class="form-control text-right" id="imUnitPrice" placeholder="">
+              </div>
+            </div>
+
+            <button class="btn btn-primary js-submit-form">Save</button>
+
+          </div>
+          <div class="col">
+
+            <div class="row form-group">
+              <label class="col-form-label col-4" for="imWidth">Width</label>
+              <div class="col-8">
+                <input type="number" step="0.01" class="form-control text-right" id="imWidth" placeholder="">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-form-label col-4" for="imLength">Length</label>
+              <div class="col-8">
+                <input type="number" step="0.01" class="form-control text-right" id="imLength" placeholder="">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-form-label col-4" for="imHeight">Height</label>
+              <div class="col-8">
+                <input type="number" step="0.01" class="form-control text-right" id="imHeight" placeholder="">
+              </div>
+            </div>
+
+
+            <div class="row form-group">
+              <label class="col-form-label col-4" for="imCube">Cube</label>
+              <div class="col-8">
+                <input disabled type="number" step="0.001" class="form-control text-right" id="imCube" placeholder="">
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <label class="col-form-label col-4">
+                      <input type="checkbox"  id="imIsPrePack">
+                      Pre-pack
+                    </label>
+              <div class="col-8 form-group">
+                <select disabled id="imPrePackStyle" class="form-control">
+                  <option selected value="0"></option>
+                          </select>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="tab-pane fade" id="inventory" role="tabpanel">
+        <div class="py-3">
+          <table id="jqGrid"></table>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-3">
+    <div class="container">
+      <p class="m-0 text-center">Copyright &copy; RXN 2017</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/popper/popper.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="vendor/jqGrid/js/jquery.jqGrid.min.js"></script>
+  <script src="vendor/jquery-ui/js/jquery-ui.min.js"></script>
+  <script src="vendor/jquery-inputmask/jquery.inputmask.bundle.min.js"></script>
+  <script src="vendor/jquery-inputmask/jquery.inputmask.binding.min.js"></script>
+  
+  <script src="vendor/jquery-blockUI/spin.js"></script>
+  <script src="vendor/jquery-blockUI/jquery.spin.js"></script>
+  <script src="vendor/jquery-blockUI/jquery.blockUI.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+
+  <script src="js/rxn.js"></script>
+  <script src="js/rxn.constant.js"></script>
+  <script src="js/rxn.product.js"></script>
+
+
+
+
+</body>
+
+</html>
